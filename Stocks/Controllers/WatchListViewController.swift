@@ -77,6 +77,11 @@ extension WatchListViewController: UISearchResultsUpdating {
 
 extension WatchListViewController: SearchResultsViewControllerDelegate {
     func searchResultsViewControllerDidSelect(searchResult: SearchResults) {
-        print("\n Did Select \n \(searchResult.description)")
+        navigationItem.searchController?.searchBar.resignFirstResponder()
+        
+        let vc = StockDetailsViewController()
+        let navVC = UINavigationController(rootViewController: vc)
+        vc.title = searchResult.description
+        present(navVC, animated: true)
     }
 }
