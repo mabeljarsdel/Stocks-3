@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4FB2E33E2719DF1D00669997 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB2E33D2719DF1D00669997 /* APIKey.swift */; };
+		4FB2E3402719E98B00669997 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB2E33F2719E98B00669997 /* SearchResponse.swift */; };
 		4FB8C462270C7A4F00D43311 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8C461270C7A4F00D43311 /* AppDelegate.swift */; };
 		4FB8C464270C7A4F00D43311 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8C463270C7A4F00D43311 /* SceneDelegate.swift */; };
 		4FB8C466270C7A4F00D43311 /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8C465270C7A4F00D43311 /* WatchListViewController.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4FB2E33D2719DF1D00669997 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		4FB2E33F2719E98B00669997 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		4FB8C45E270C7A4F00D43311 /* Stocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FB8C461270C7A4F00D43311 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FB8C463270C7A4F00D43311 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +87,7 @@
 		4FB8C475270C7B5F00D43311 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4FB2E33F2719E98B00669997 /* SearchResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -113,6 +118,7 @@
 				4FB8C480270C8A9A00D43311 /* APICaller.swift */,
 				4FB8C482270C8AB400D43311 /* PersistenceManager.swift */,
 				4FB8C484270C8AC500D43311 /* HapticsManager.swift */,
+				4FB2E33D2719DF1D00669997 /* APIKey.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -198,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FB2E3402719E98B00669997 /* SearchResponse.swift in Sources */,
 				4FB8C485270C8AC500D43311 /* HapticsManager.swift in Sources */,
 				4FB8C4EB270CAF6E00D43311 /* SearchResultTableViewCell.swift in Sources */,
 				4FB8C47F270C7DDE00D43311 /* StockDetailsViewController.swift in Sources */,
@@ -208,6 +215,7 @@
 				4FB8C481270C8A9A00D43311 /* APICaller.swift in Sources */,
 				4FB8C462270C7A4F00D43311 /* AppDelegate.swift in Sources */,
 				4FB8C464270C7A4F00D43311 /* SceneDelegate.swift in Sources */,
+				4FB2E33E2719DF1D00669997 /* APIKey.swift in Sources */,
 				4FB8C47D270C7DCB00D43311 /* SearchResultsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,6 +9,8 @@ import UIKit
 
 class WatchListViewController: UIViewController {
     
+    private var searchTimer: Timer?
+    
     //MARK: - LIFECYCLE
     
     override func viewDidLoad() {
@@ -53,15 +55,28 @@ extension WatchListViewController: UISearchResultsUpdating {
               !query.trimmingCharacters(in: .whitespaces).isEmpty else {
                   return
               }
-        // Optimize to reduce number of searches
-        // Call api to search
-        //update result controller
-        resultVC.update(with: ["goggle"])
+        // Timer reduces amount of apicalls
+        searchTimer?.invalidate()
+        searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false, block: { _ in
+            APICaller.shared.search(query: query) { result in
+                switch result {
+                case .success(let response):
+                    DispatchQueue.main.async {
+                        resultVC.update(with: response.result)
+                    }
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        resultVC.update(with: [])
+                    }
+                    print(error)
+                }
+            }
+        })
     }
 }
 
 extension WatchListViewController: SearchResultsViewControllerDelegate {
-    func searchResultsViewControllerDidSelect(searchResult: String) {
-        // Present Stock details for given selection
+    func searchResultsViewControllerDidSelect(searchResult: SearchResults) {
+        print("\n Did Select \n \(searchResult.description)")
     }
 }
