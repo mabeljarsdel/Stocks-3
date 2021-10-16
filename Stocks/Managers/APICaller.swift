@@ -14,6 +14,7 @@ final class APICaller {
         static let apiKey = APIKey.key
         static let sandboxApiKey = APIKey.sandboxKey
         static let baseUrl = "https://finnhub.io/api/v1/"
+        static let day: TimeInterval = 3600 * 24
     }
     
     private init() {}
@@ -29,19 +30,50 @@ final class APICaller {
         }
         request(url: url(
             for: .search,
-            queryParams: ["q":safeQuery]
+               queryParams: ["q":safeQuery]
         ),
                 expecting: SearchResponse.self,
                 completion: completion
         )
     }
     
-    //search stock
+    public func news(
+        for newsType: NewsViewController.NewsType,
+        completion: @escaping (Result<[NewsStory],Error>) -> Void
+    ) {
+        switch newsType {
+        case .topStroies:
+            request(url: url(
+                for: .topStories,
+                   queryParams: ["category" : "general"]
+            ),
+                    expecting: [NewsStory].self,
+                    completion: completion
+            )
+        case .company(let symbol):
+            let today = Date()
+            let oneMonthBack = today.addingTimeInterval(-(Constants.day * 7))
+            request(url: url(
+                for: .companyNews,
+                   queryParams: [
+                    "symbol" : symbol,
+                    "from" : DateFormatter.newsDateFormatter.string(from: oneMonthBack),
+                    "to" : DateFormatter.newsDateFormatter.string(from: today)
+                   ]
+            ),
+                    expecting: [NewsStory].self,
+                    completion: completion
+            )
+        }
+    }
+    
     
     //MARK: - PRIVATE
     
     private enum Endpoint: String {
         case search
+        case topStories = "news"
+        case companyNews = "company-news"
     }
     
     private enum APIError: Error {

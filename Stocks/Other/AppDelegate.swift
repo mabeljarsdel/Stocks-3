@@ -29,6 +29,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func debug(){
-        
+        APICaller.shared.news(for: .company(symbol: "AAPL")) { results in
+            switch results {
+            case .success(let stories):
+                print(stories)
+            case.failure(let error):
+                print(error)
+            }
+        }
     }
 }
