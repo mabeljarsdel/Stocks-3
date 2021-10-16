@@ -10,9 +10,21 @@ import UIKit
 
 class WatchListViewController: UIViewController {
     
+    // MARK: - Properties
     private var searchTimer: Timer?
     
     private var panel: FloatingPanelController?
+    // Model
+    private var watchListMap: [String: [String]] = [:]
+    
+    // ViewModels
+    private var viewModels: [String] = []
+    
+    private let tableView: UITableView = {
+        let table = UITableView()
+        
+        return table
+    }()
     
     //MARK: - LIFECYCLE
     
@@ -20,12 +32,29 @@ class WatchListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setUpSearchController()
+        setupTableView()
         setUPFloatingPalnel()
         setUpTitleView()
+        setUpWatchListData()
         
     }
     
     //MARK: - PRIVATE
+    
+    private func  setUpWatchListData() {
+        let symbols = PersistanceManager.shared.watchlist
+        for symbol in symbols {
+            watchListMap[symbol] = ["some string"]
+        }
+        
+        tableView.reloadData()
+    }
+    
+    private func setupTableView() {
+        view.addSubviews(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
     
     private func setUPFloatingPalnel() {
         let vc = NewsViewController(newsType: .topStroies)
@@ -104,4 +133,22 @@ extension WatchListViewController: FloatingPanelControllerDelegate {
     func floatingPanelDidChangeState(_ fpc: FloatingPanelController) {
         navigationItem.titleView?.isHidden = fpc.state == .full
     }
+}
+
+extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return watchListMap.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        // Open details for selection
+    }
+    
 }

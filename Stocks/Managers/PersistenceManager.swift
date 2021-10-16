@@ -7,14 +7,15 @@
 
 import Foundation
 
-final class PresistanceManager {
-    static let shared = PresistanceManager()
+final class PersistanceManager {
+    static let shared = PersistanceManager()
     
     private let userDefaulst: UserDefaults = .standard
     
     
     private struct Constants {
-        
+        static let onboardedKey = "hasOnboarded"
+        static let watchlistKey = "watchlist"
     }
     
     private init() { }
@@ -22,7 +23,11 @@ final class PresistanceManager {
     //MARK: - PUBLIC
     
     var watchlist: [String] {
-        return []
+        if !hasOnboarded {
+            userDefaulst.set(true, forKey: Constants.onboardedKey)
+            setUpDefaults()
+        }
+        return userDefaulst.stringArray(forKey: Constants.watchlistKey) ?? [] 
     }
 
     public func addToWatchlist() {
@@ -36,7 +41,28 @@ final class PresistanceManager {
     //MARK: - PRIVATE
     
     private var hasOnboarded: Bool {
-        return false
+        return userDefaulst.bool(forKey: Constants.onboardedKey)
     }
     
+    private func setUpDefaults() {
+        let map: [String: String] = [
+            "AAPL" : "Apple Inc",
+            "MSFT" : "Microsfot Corporation",
+            "SNAP" : "Snap Inc.",
+            "GOOG" : "Alphabet",
+            "AMZN" : "Amazon.com, Inc.",
+            "WORK" : "Slack Technologies",
+              "FB" : "Facebook Inc.",
+            "NVDA" : "Nvidia Inc.",
+             "NKE" : "Nike",
+            "PINS" : "Pinterest"
+        ]
+        
+        let symbols = map.keys.map { $0 }
+        userDefaulst.set(symbols, forKey: Constants.watchlistKey)
+        
+        for (symbol, name) in map {
+            userDefaulst.set(name, forKey: symbol)
+        }
+    }
 }
