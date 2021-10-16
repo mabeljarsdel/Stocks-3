@@ -28,7 +28,7 @@ class WatchListViewController: UIViewController {
     //MARK: - PRIVATE
     
     private func setUPFloatingPalnel() {
-        let vc = TopStoriesNewsViewController()
+        let vc = NewsViewController(newsType: .topStroies)
         let panel = FloatingPanelController(delegate: self)
         panel.surfaceView.backgroundColor = .secondarySystemBackground
         panel.set(contentViewController: vc)
@@ -69,7 +69,7 @@ extension WatchListViewController: UISearchResultsUpdating {
               !query.trimmingCharacters(in: .whitespaces).isEmpty else {
                   return
               }
-        // Timer reduces amount of apicalls
+        // Timer reduces amount of api calls
         searchTimer?.invalidate()
         searchTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false, block: { _ in
             APICaller.shared.search(query: query) { result in

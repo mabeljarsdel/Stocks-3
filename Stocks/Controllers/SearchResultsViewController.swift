@@ -13,10 +13,12 @@ protocol SearchResultsViewControllerDelegate: AnyObject {
 
 class SearchResultsViewController: UIViewController, UITableViewDelegate {
     
+    // MARK: - Properties
     weak var delegate: SearchResultsViewControllerDelegate?
     
     private var results: [SearchResults] = []
     
+    // MARK: - Views
     private let tableView: UITableView = {
         let table = UITableView()
         table.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
@@ -24,6 +26,7 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate {
         return table
     }()
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -33,13 +36,13 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-    
+   
     private func setUpTable() {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
     }
-    
+    // MARK: - Public
     public func update(with results: [SearchResults]) {
         self.results = results
         tableView.isHidden = results.isEmpty
