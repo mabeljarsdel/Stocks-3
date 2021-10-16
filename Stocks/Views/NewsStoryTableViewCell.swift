@@ -4,13 +4,13 @@
 //
 //  Created by Dimitry Kodryan on 16.10.2021.
 //
-
+import SDWebImage
 import UIKit
 
 class NewsStoryTableViewCell: UITableViewCell {
     static let identifier = "NewsStoryTableViewCell"
     
-    static let preferredHeight: CGFloat = 140
+    static let preferredHeight: CGFloat = 200
     
     struct ViewModel {
         let source: String
@@ -36,7 +36,7 @@ class NewsStoryTableViewCell: UITableViewCell {
     // Headline
     private let headlineLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 24, weight: .regular)
+        label.font = .systemFont(ofSize: 20, weight: .regular)
         label.numberOfLines = 0
         return label
     }()
@@ -73,10 +73,10 @@ class NewsStoryTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let imageSize: CGFloat = contentView.height-6
+        let imageSize: CGFloat = contentView.height * 0.5
         storyImageView.frame = CGRect(
             x: contentView.width-imageSize-10,
-            y: 3,
+            y: (contentView.height - imageSize) / 2,
             width: imageSize,
             height: imageSize
         )
@@ -118,6 +118,6 @@ class NewsStoryTableViewCell: UITableViewCell {
         headlineLabel.text = viewModel.headline
         sourceLabel.text = viewModel.source
         dateLabel.text = viewModel.dateString
-//        storyImageView.setImage(with: viewModel.imageURL)
+        storyImageView.sd_setImage(with: viewModel.imageURL, completed: nil)
     }
 }
