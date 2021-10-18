@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F324CCB271B4FDC00A2651C /* MarketDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F324CCA271B4FDC00A2651C /* MarketDataResponse.swift */; };
+		4FAE0BAC271DAFCD00CBA154 /* WatchListhTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE0BAB271DAFCD00CBA154 /* WatchListhTableViewCell.swift */; };
+		4FAE0BAE271DB1FB00CBA154 /* StockChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAE0BAD271DB1FB00CBA154 /* StockChartView.swift */; };
 		4FB2E33E2719DF1D00669997 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB2E33D2719DF1D00669997 /* APIKey.swift */; };
 		4FB2E3402719E98B00669997 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB2E33F2719E98B00669997 /* SearchResponse.swift */; };
 		4FB8C462270C7A4F00D43311 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8C461270C7A4F00D43311 /* AppDelegate.swift */; };
@@ -29,6 +32,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F324CCA271B4FDC00A2651C /* MarketDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataResponse.swift; sourceTree = "<group>"; };
+		4FAE0BAB271DAFCD00CBA154 /* WatchListhTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListhTableViewCell.swift; sourceTree = "<group>"; };
+		4FAE0BAD271DB1FB00CBA154 /* StockChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockChartView.swift; sourceTree = "<group>"; };
 		4FB2E33D2719DF1D00669997 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		4FB2E33F2719E98B00669997 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		4FB8C45E270C7A4F00D43311 /* Stocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +117,7 @@
 			children = (
 				4FB2E33F2719E98B00669997 /* SearchResponse.swift */,
 				4FCBBA47271B060A007765F4 /* NewsStory.swift */,
+				4F324CCA271B4FDC00A2651C /* MarketDataResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -122,6 +129,8 @@
 				4FB8C4EA270CAF6E00D43311 /* SearchResultTableViewCell.swift */,
 				4FCBBA45271AF11D007765F4 /* NewsHeaderView.swift */,
 				4FCBBA49271B0F7A007765F4 /* NewsStoryTableViewCell.swift */,
+				4FAE0BAB271DAFCD00CBA154 /* WatchListhTableViewCell.swift */,
+				4FAE0BAD271DB1FB00CBA154 /* StockChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -285,10 +294,12 @@
 				4FB8C485270C8AC500D43311 /* HapticsManager.swift in Sources */,
 				4FB8C4EB270CAF6E00D43311 /* SearchResultTableViewCell.swift in Sources */,
 				4FB8C47F270C7DDE00D43311 /* StockDetailsViewController.swift in Sources */,
+				4FAE0BAC271DAFCD00CBA154 /* WatchListhTableViewCell.swift in Sources */,
 				4FB8C466270C7A4F00D43311 /* WatchListViewController.swift in Sources */,
 				4FB8C47B270C7D3700D43311 /* NewsViewController.swift in Sources */,
 				4FCBBA46271AF11D007765F4 /* NewsHeaderView.swift in Sources */,
 				4FCBBA48271B060A007765F4 /* NewsStory.swift in Sources */,
+				4FAE0BAE271DB1FB00CBA154 /* StockChartView.swift in Sources */,
 				4FCBBA4A271B0F7A007765F4 /* NewsStoryTableViewCell.swift in Sources */,
 				4FB8C483270C8AB400D43311 /* PersistenceManager.swift in Sources */,
 				4FB8C4E9270CA28600D43311 /* Extensions.swift in Sources */,
@@ -296,6 +307,7 @@
 				4FB8C462270C7A4F00D43311 /* AppDelegate.swift in Sources */,
 				4FB8C464270C7A4F00D43311 /* SceneDelegate.swift in Sources */,
 				4FB2E33E2719DF1D00669997 /* APIKey.swift in Sources */,
+				4F324CCB271B4FDC00A2651C /* MarketDataResponse.swift in Sources */,
 				4FB8C47D270C7DCB00D43311 /* SearchResultsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
