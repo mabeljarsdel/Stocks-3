@@ -16,14 +16,14 @@ struct MarketDataResponse: Codable {
     let timestamps: [TimeInterval]
     
     
-     private enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case open = "o"
         case close = "c"
         case high = "h"
         case low = "l"
-         case status = "s"
-         case timestamps = "t"
-     }
+        case status = "s"
+        case timestamps = "t"
+    }
     var candleSticks: [CandleStick] {
         var result = [CandleStick]()
         
@@ -37,7 +37,8 @@ struct MarketDataResponse: Codable {
                      )
             )
         }
-        let sortedData = result.sorted(by: { $0.date < $1.date})
+        
+        let sortedData = result.sorted(by: { $0.date > $1.date})
         return sortedData
     }
 }

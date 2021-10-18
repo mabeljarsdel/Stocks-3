@@ -18,7 +18,7 @@ class WatchListViewController: UIViewController {
     private var watchListMap: [String: [CandleStick]] = [:]
     
     // ViewModels
-    private var viewModels: [String] = []
+    private var viewModels: [WatchListhTableViewCell.ViewModel] = []
     
     private let tableView: UITableView = {
         let table = UITableView()
@@ -64,8 +64,44 @@ class WatchListViewController: UIViewController {
         }
         
         group.notify(queue: .main) { [weak self] in
+            self?.createViewModels()
             self?.tableView.reloadData()
         }
+    }
+    
+    private func createViewModels() {
+        var viewModels = [WatchListhTableViewCell.ViewModel]()
+        for (symbol, candleSticks) in watchListMap {
+            let changePercentage = getChangePercentage(symbol: symbol, data: candleSticks)
+            viewModels.append(.init(
+                symbol: symbol,
+                companyName: UserDefaults.standard.string(forKey: symbol) ?? "Company",
+                price: getLatestClosingPrice(from: candleSticks),
+                changeColor: changePercentage < 0 ? .systemRed : .systemGreen ,
+                changePercentage: String.percentage(from: changePercentage)
+            )
+            )
+        }
+        
+        self.viewModels = viewModels
+    }
+    
+    private func getChangePercentage(symbol: String, data: [CandleStick]) -> Double {
+        let latestDate = data[0].date
+        guard let latestClose = data.first?.close,
+        let priorClose = data.first(where: {
+            !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
+        })?.close  else {
+            return 0
+        }
+        
+        let diff = 1 - priorClose/latestClose
+        return diff
+    }
+    
+    private func getLatestClosingPrice(from data: [CandleStick]) -> String {
+        guard let clsoingPrice = data.first?.close else  { return "" }
+        return String.formatedNumber(number: clsoingPrice)
     }
     
     private func setupTableView() {

@@ -18,7 +18,7 @@ final class PersistanceManager {
         static let watchlistKey = "watchlist"
     }
     
-    private init() { }
+    private init() {}
     
     //MARK: - PUBLIC
     
@@ -51,7 +51,6 @@ final class PersistanceManager {
             "SNAP" : "Snap Inc.",
             "GOOG" : "Alphabet",
             "AMZN" : "Amazon.com, Inc.",
-            "WORK" : "Slack Technologies",
               "FB" : "Facebook Inc.",
             "NVDA" : "Nvidia Inc.",
              "NKE" : "Nike",
