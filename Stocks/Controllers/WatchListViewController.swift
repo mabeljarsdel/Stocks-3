@@ -33,7 +33,9 @@ class WatchListViewController: UIViewController {
         return table
     }()
     
-    //MARK: - LIFECYCLE
+    private var observer: NSObjectProtocol?
+    
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,7 @@ class WatchListViewController: UIViewController {
         setUPFloatingPalnel()
         setUpTitleView()
         fetchWatchListData()
+        setUpObserver()
         
     }
     
@@ -51,14 +54,26 @@ class WatchListViewController: UIViewController {
         tableView.frame = view.bounds
     }
     
-    //MARK: - PRIVATE
+    //MARK: - Private
+    
+    private func setUpObserver() {
+        observer = NotificationCenter.default.addObserver(
+            forName: .didAddToWatchList,
+            object: nil,
+            queue: .main
+            ) { [weak self] _ in
+                self?.viewModels.removeAll()
+                self?.fetchWatchListData()
+                self?.tableView.reloadData()
+        }
+    }
     
     private func  fetchWatchListData() {
         let symbols = PersistanceManager.shared.watchlist
         
         let group = DispatchGroup()
         
-        for symbol in symbols {
+        for symbol in symbols where watchListMap[symbol] == nil {
             group.enter()
             
             APICaller.shared.marketData(for: symbol) { [weak self] result in
@@ -191,7 +206,10 @@ extension WatchListViewController: SearchResultsViewControllerDelegate {
     func searchResultsViewControllerDidSelect(searchResult: SearchResults) {
         navigationItem.searchController?.searchBar.resignFirstResponder()
         
-        let vc = StockDetailsViewController()
+        let vc = StockDetailsViewController(
+            symbol: searchResult.displaySymbol,
+            companyName: searchResult.description
+        )
         let navVC = UINavigationController(rootViewController: vc)
         vc.title = searchResult.description
         present(navVC, animated: true)
@@ -226,6 +244,39 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         // Open details for selection
+        let viewModel = viewModels[indexPath.row]
+        let vc = StockDetailsViewController(
+            symbol: viewModel.symbol,
+            companyName: viewModel.companyName,
+            candleStickData: watchListMap[viewModel.symbol] ?? []
+        )
+        let navVC = UINavigationController(rootViewController: vc)
+        present(navVC,animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            
+            // Upadte persistance
+            PersistanceManager.shared.removeFromWatchlist(symbol: viewModels[indexPath.row].symbol)
+            
+            // Update viewmodel
+            viewModels.remove(at: indexPath.row)
+            
+            // Delete row
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.endUpdates()
+            
+        }
     }
     
 }

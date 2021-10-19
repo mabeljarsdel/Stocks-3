@@ -10,7 +10,7 @@ import Foundation
 final class PersistanceManager {
     static let shared = PersistanceManager()
     
-    private let userDefaulst: UserDefaults = .standard
+    private let userDefaults: UserDefaults = .standard
     
     
     private struct Constants {
@@ -24,24 +24,38 @@ final class PersistanceManager {
     
     var watchlist: [String] {
         if !hasOnboarded {
-            userDefaulst.set(true, forKey: Constants.onboardedKey)
+            userDefaults.set(true, forKey: Constants.onboardedKey)
             setUpDefaults()
         }
-        return userDefaulst.stringArray(forKey: Constants.watchlistKey) ?? [] 
+        return userDefaults.stringArray(forKey: Constants.watchlistKey) ?? []
     }
 
-    public func addToWatchlist() {
+    public func addToWatchlist(symbol: String, companyName: String) {
+        var current = watchlist
+        current.append(symbol)
+        userDefaults.set(current, forKey: Constants.watchlistKey)
+        userDefaults.set(companyName, forKey: symbol)
+        
+        NotificationCenter.default.post(name: .didAddToWatchList, object: nil)
         
     }
     
-    public func removeFromWatchlist() {
+    public func removeFromWatchlist(symbol: String) {
+        var newList = [String]()
         
+        userDefaults.set(nil, forKey: symbol)
+        
+        for item in watchlist where item != symbol {
+            newList.append(item)
+        }
+        userDefaults.set(newList, forKey: Constants.watchlistKey)
+      
     }
     
     //MARK: - PRIVATE
     
     private var hasOnboarded: Bool {
-        return userDefaulst.bool(forKey: Constants.onboardedKey)
+        return userDefaults.bool(forKey: Constants.onboardedKey)
     }
     
     private func setUpDefaults() {
@@ -58,10 +72,10 @@ final class PersistanceManager {
         ]
         
         let symbols = map.keys.map { $0 }
-        userDefaulst.set(symbols, forKey: Constants.watchlistKey)
+        userDefaults.set(symbols, forKey: Constants.watchlistKey)
         
         for (symbol, name) in map {
-            userDefaulst.set(name, forKey: symbol)
+            userDefaults.set(name, forKey: symbol)
         }
     }
 }
