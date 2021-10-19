@@ -24,6 +24,8 @@ class StockDetailsViewController: UIViewController {
     
     private var stories: [NewsStory] = []
     
+    private var metrics: Metrics?
+    
     // MARK: - Init
     init(
         symbol:String,
@@ -82,13 +84,14 @@ class StockDetailsViewController: UIViewController {
         let group = DispatchGroup()
         if !candleStickData.isEmpty {
             group.enter()
-            APICaller.shared.financialMetrics(for: symbol) { result in
+            APICaller.shared.financialMetrics(for: symbol) { [weak self] result in
                 defer {
                     group.leave()
                 }
                 switch result {
                 case .success(let response):
                     let metrics = response.metric
+                    self?.metrics = metrics
                 case .failure(let error):
                     print(error)
                 }
@@ -116,7 +119,29 @@ class StockDetailsViewController: UIViewController {
     }
     
     private func  renderChart() {
-        // Chart VM | FinancialMetricsView
+        let headerView = StockDetailHeaderView(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: view.width,
+            height: (view.height * 0.3) + 100
+            )
+        )
+        
+        var viewModels = [MetricCollectionViewCell.ViewModel]()
+        if let metrics = metrics {
+            
+            viewModels.append(.init(name: "52W High", value: String(metrics.AnnualWeekHigh)))
+            viewModels.append(.init(name: "52W Low", value: String(metrics.AnnualWeekLow)))
+            viewModels.append(.init(name: "52W Return", value: String(metrics.AnnualWeekPriceReturnDaily)))
+            viewModels.append(.init(name: "Beta", value: String(metrics.beta)))
+            viewModels.append(.init(name: "10D Vol.", value: String(metrics.TenDayAverageTradingVolume)))
+            
+        }
+        
+        // Configure
+        headerView.configure(chartViewModel: .init(data: [], showLegend: false, showAxis: false), metricViewModels: viewModels)
+        
+        tableView.tableHeaderView = headerView
     }
 }
 
