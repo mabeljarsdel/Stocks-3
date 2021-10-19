@@ -79,9 +79,25 @@ class StockDetailsViewController: UIViewController {
     }
     
     private func fetchFinancialData() {
-        // TODO: Fetch candlesticks & metrics
-        
-        renderChart()
+        let group = DispatchGroup()
+        if !candleStickData.isEmpty {
+            group.enter()
+            APICaller.shared.financialMetrics(for: symbol) { result in
+                defer {
+                    group.leave()
+                }
+                switch result {
+                case .success(let response):
+                    let metrics = response.metric
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        group.notify(queue: .main) { [weak self] in
+            self?.renderChart()
+        }
+       
     }
     
     private func fetchNews () {
@@ -100,7 +116,7 @@ class StockDetailsViewController: UIViewController {
     }
     
     private func  renderChart() {
-        
+        // Chart VM | FinancialMetricsView
     }
 }
 

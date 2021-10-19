@@ -28,6 +28,8 @@
 		4FCBBA46271AF11D007765F4 /* NewsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBBA45271AF11D007765F4 /* NewsHeaderView.swift */; };
 		4FCBBA48271B060A007765F4 /* NewsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBBA47271B060A007765F4 /* NewsStory.swift */; };
 		4FCBBA4A271B0F7A007765F4 /* NewsStoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBBA49271B0F7A007765F4 /* NewsStoryTableViewCell.swift */; };
+		4FF89EEF271F407700D353FF /* FinancialMetricsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF89EEE271F407700D353FF /* FinancialMetricsResponse.swift */; };
+		4FF89EF1271F45CE00D353FF /* StockDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF89EF0271F45CE00D353FF /* StockDetailHeaderView.swift */; };
 		AC68134FDDDC44FDDA354C41 /* Pods_Stocks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C757C09EEF97962FD3417D59 /* Pods_Stocks.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +57,8 @@
 		4FCBBA45271AF11D007765F4 /* NewsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHeaderView.swift; sourceTree = "<group>"; };
 		4FCBBA47271B060A007765F4 /* NewsStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsStory.swift; sourceTree = "<group>"; };
 		4FCBBA49271B0F7A007765F4 /* NewsStoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsStoryTableViewCell.swift; sourceTree = "<group>"; };
+		4FF89EEE271F407700D353FF /* FinancialMetricsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialMetricsResponse.swift; sourceTree = "<group>"; };
+		4FF89EF0271F45CE00D353FF /* StockDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailHeaderView.swift; sourceTree = "<group>"; };
 		778CE26EF4A71F33AAF71FBC /* Pods-Stocks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stocks.debug.xcconfig"; path = "Target Support Files/Pods-Stocks/Pods-Stocks.debug.xcconfig"; sourceTree = "<group>"; };
 		7F3AE861B2959C861A07D007 /* Pods-Stocks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stocks.release.xcconfig"; path = "Target Support Files/Pods-Stocks/Pods-Stocks.release.xcconfig"; sourceTree = "<group>"; };
 		C757C09EEF97962FD3417D59 /* Pods_Stocks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stocks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +122,7 @@
 				4FB2E33F2719E98B00669997 /* SearchResponse.swift */,
 				4FCBBA47271B060A007765F4 /* NewsStory.swift */,
 				4F324CCA271B4FDC00A2651C /* MarketDataResponse.swift */,
+				4FF89EEE271F407700D353FF /* FinancialMetricsResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 				4FCBBA49271B0F7A007765F4 /* NewsStoryTableViewCell.swift */,
 				4FAE0BAB271DAFCD00CBA154 /* WatchListhTableViewCell.swift */,
 				4FAE0BAD271DB1FB00CBA154 /* StockChartView.swift */,
+				4FF89EF0271F45CE00D353FF /* StockDetailHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -299,9 +305,11 @@
 				4FB8C47B270C7D3700D43311 /* NewsViewController.swift in Sources */,
 				4FCBBA46271AF11D007765F4 /* NewsHeaderView.swift in Sources */,
 				4FCBBA48271B060A007765F4 /* NewsStory.swift in Sources */,
+				4FF89EF1271F45CE00D353FF /* StockDetailHeaderView.swift in Sources */,
 				4FAE0BAE271DB1FB00CBA154 /* StockChartView.swift in Sources */,
 				4FCBBA4A271B0F7A007765F4 /* NewsStoryTableViewCell.swift in Sources */,
 				4FB8C483270C8AB400D43311 /* PersistenceManager.swift in Sources */,
+				4FF89EEF271F407700D353FF /* FinancialMetricsResponse.swift in Sources */,
 				4FB8C4E9270CA28600D43311 /* Extensions.swift in Sources */,
 				4FB8C481270C8A9A00D43311 /* APICaller.swift in Sources */,
 				4FB8C462270C7A4F00D43311 /* AppDelegate.swift in Sources */,

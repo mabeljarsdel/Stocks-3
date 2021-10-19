@@ -29,7 +29,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func debug(){
-
+        APICaller.shared.financialMetrics(for: "AAPL") { results in
+            switch results {
+            case .success(let result):
+                print(result)
+            case .failure(let error):
+                print(error)
+            }
+        }
         
         
     }
