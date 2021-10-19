@@ -35,7 +35,7 @@ class WatchListViewController: UIViewController {
     
     private var observer: NSObjectProtocol?
     
-    //MARK: - LIFECYCLE
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,7 @@ class WatchListViewController: UIViewController {
         tableView.frame = view.bounds
     }
     
-    //MARK: - PRIVATE
+    //MARK: - Private
     
     private func setUpObserver() {
         observer = NotificationCenter.default.addObserver(
@@ -206,7 +206,10 @@ extension WatchListViewController: SearchResultsViewControllerDelegate {
     func searchResultsViewControllerDidSelect(searchResult: SearchResults) {
         navigationItem.searchController?.searchBar.resignFirstResponder()
         
-        let vc = StockDetailsViewController()
+        let vc = StockDetailsViewController(
+            symbol: searchResult.displaySymbol,
+            companyName: searchResult.description
+        )
         let navVC = UINavigationController(rootViewController: vc)
         vc.title = searchResult.description
         present(navVC, animated: true)
@@ -241,6 +244,14 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         // Open details for selection
+        let viewModel = viewModels[indexPath.row]
+        let vc = StockDetailsViewController(
+            symbol: viewModel.symbol,
+            companyName: viewModel.companyName,
+            candleStickData: watchListMap[viewModel.symbol] ?? []
+        )
+        let navVC = UINavigationController(rootViewController: vc)
+        present(navVC,animated: true)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
