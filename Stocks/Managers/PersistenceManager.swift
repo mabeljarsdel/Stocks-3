@@ -34,8 +34,19 @@ final class PersistanceManager {
         
     }
     
-    public func removeFromWatchlist() {
+    public func removeFromWatchlist(symbol: String) {
+        var newList = [String]()
         
+        print("Deleting: \(symbol)")
+        
+        userDefaulst.set(nil, forKey: symbol)
+        
+        for item in watchlist where item != symbol {
+            print("\n\(item)")
+            newList.append(item)
+        }
+        userDefaulst.set(newList, forKey: Constants.watchlistKey)
+      
     }
     
     //MARK: - PRIVATE
