@@ -8,12 +8,15 @@
 import SafariServices
 import UIKit
 
-class NewsViewController: UIViewController {
+/// Controller to show news
+final class NewsViewController: UIViewController {
     
+    /// Type of news
     enum NewsType {
         case topStroies
         case company(symbol: String)
         
+        /// Title for given type
         var title: String {
             switch self {
             case .topStroies:
@@ -24,6 +27,15 @@ class NewsViewController: UIViewController {
         }
     }
     
+    // MARK: - Properties
+    
+    /// Collection of models
+    private var stories = [NewsStory]()
+    
+    /// Instance of type
+    private let newsType: NewsType
+    
+    /// Primaty news view
     let tableView:UITableView = {
         let table = UITableView()
         table.register(NewsHeaderView.self, forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
@@ -32,13 +44,9 @@ class NewsViewController: UIViewController {
         return table
     }()
     
-    // MARK: - Properties
-    
-    private var stories = [NewsStory]()
-    
-    private let newsType: NewsType
-    
     // MARK: - Init
+    
+    /// Crate VC with type
     init(newsType: NewsType) {
         self.newsType  = newsType
         super.init(nibName: nil, bundle: nil)
@@ -65,12 +73,14 @@ class NewsViewController: UIViewController {
     
     // MARK: - Private
     
+    /// Sets up Table view
     private func setUptable() {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
     }
     
+    /// Fetch news models
     private func fetchNews() {
         APICaller.shared.news(for: self.newsType) { [weak self] result in
             switch result {
@@ -85,12 +95,16 @@ class NewsViewController: UIViewController {
         }
     }
     
+    /// Open a story
+    /// - Parameter url: URL to open
     private func open(url:URL) {
         let vc = SFSafariViewController(url: url)
         present(vc,animated: true)
     }
     
 }
+
+// MARK: - UITableViewDelegate
 
 extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -134,6 +148,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
         open(url: url)
     }
     
+    /// Show an alert if an error occurred when opening story
     private func presentFaildToOpenAlert() {
         let alert = UIAlertController(
             title: "Unable to Open",

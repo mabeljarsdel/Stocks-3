@@ -7,21 +7,29 @@
 
 import Foundation
 
+
+/// Manages saved caches
 final class PersistanceManager {
+    
+    /// Singleton
     static let shared = PersistanceManager()
     
+    /// Reference to user defaults
     private let userDefaults: UserDefaults = .standard
     
     
+    /// Constants
     private struct Constants {
         static let onboardedKey = "hasOnboarded"
         static let watchlistKey = "watchlist"
     }
     
+    /// Privatized constructor
     private init() {}
     
     //MARK: - PUBLIC
     
+    /// Get user watchlist
     var watchlist: [String] {
         if !hasOnboarded {
             userDefaults.set(true, forKey: Constants.onboardedKey)
@@ -30,10 +38,17 @@ final class PersistanceManager {
         return userDefaults.stringArray(forKey: Constants.watchlistKey) ?? []
     }
     
+    /// Check if watchlist contains item
+    /// - Parameter symbol: Symbol to check
+    /// - Returns: Boolean
     public func watchListContains(symbol: String) -> Bool {
         return watchlist.contains(symbol)
     }
-
+    
+    /// Adds a symbol to watchlist
+    /// - Parameters:
+    ///   - symbol: Symbol to add
+    ///   - companyName: Company name for symbol being added
     public func addToWatchlist(symbol: String, companyName: String) {
         var current = watchlist
         current.append(symbol)
@@ -44,6 +59,8 @@ final class PersistanceManager {
         
     }
     
+    /// Remove item from watchlist
+    /// - Parameter symbol: symbol to remove
     public func removeFromWatchlist(symbol: String) {
         var newList = [String]()
         
@@ -57,10 +74,12 @@ final class PersistanceManager {
     
     //MARK: - PRIVATE
     
+    /// Check if user has been onboarded
     private var hasOnboarded: Bool {
         return userDefaults.bool(forKey: Constants.onboardedKey)
     }
     
+    /// Set up default watch list
     private func setUpDefaults() {
         let map: [String: String] = [
             "AAPL" : "Apple Inc",

@@ -7,18 +7,22 @@
 
 import UIKit
 
+/// Delegate for search results
 protocol SearchResultsViewControllerDelegate: AnyObject {
+    /// Notify delegate of selection
     func searchResultsViewControllerDidSelect(searchResult: SearchResults)
 }
 
-class SearchResultsViewController: UIViewController, UITableViewDelegate {
+/// VC to show search results
+final class SearchResultsViewController: UIViewController, UITableViewDelegate {
     
-    // MARK: - Properties
+    /// Delegate to get events
     weak var delegate: SearchResultsViewControllerDelegate?
     
+    /// Collection fo results
     private var results: [SearchResults] = []
     
-    // MARK: - Views
+    /// Primary view
     private let tableView: UITableView = {
         let table = UITableView()
         table.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
@@ -27,6 +31,7 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate {
     }()
 
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -36,19 +41,27 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-   
+    
+    // MARK: - Private
+    
+    /// Sets up tablew view
     private func setUpTable() {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
     }
     // MARK: - Public
+    
+    /// Update results on VC
+    /// - Parameter results: Collection of new results
     public func update(with results: [SearchResults]) {
         self.results = results
         tableView.isHidden = results.isEmpty
         tableView.reloadData()
     }
 }
+
+// MARK: - TableView
 
 extension SearchResultsViewController:  UITableViewDataSource {
     
