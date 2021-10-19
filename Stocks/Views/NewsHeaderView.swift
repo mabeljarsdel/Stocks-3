@@ -28,7 +28,7 @@ class NewsHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
-    private let button: UIButton = {
+     let button: UIButton = {
         let button = UIButton()
         button.setTitle("+ Watchlist", for: .normal)
         button.backgroundColor = .systemBlue
@@ -44,6 +44,7 @@ class NewsHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .secondarySystemBackground
+        backgroundColor = .secondarySystemBackground
         contentView.addSubviews(label,button)
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         

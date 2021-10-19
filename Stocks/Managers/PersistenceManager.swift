@@ -29,6 +29,10 @@ final class PersistanceManager {
         }
         return userDefaults.stringArray(forKey: Constants.watchlistKey) ?? []
     }
+    
+    public func watchListContains(symbol: String) -> Bool {
+        return watchlist.contains(symbol)
+    }
 
     public func addToWatchlist(symbol: String, companyName: String) {
         var current = watchlist
@@ -49,7 +53,6 @@ final class PersistanceManager {
             newList.append(item)
         }
         userDefaults.set(newList, forKey: Constants.watchlistKey)
-      
     }
     
     //MARK: - PRIVATE

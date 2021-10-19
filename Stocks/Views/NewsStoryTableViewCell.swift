@@ -93,7 +93,7 @@ class NewsStoryTableViewCell: UITableViewCell {
         sourceLabel.sizeToFit()
         sourceLabel.frame = CGRect(
             x: separatorInset.left,
-            y: 4,
+            y: 20,
             width: availableWidth,
             height: sourceLabel.height
         )
