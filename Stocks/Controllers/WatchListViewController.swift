@@ -232,6 +232,8 @@ extension WatchListViewController: SearchResultsViewControllerDelegate {
     func searchResultsViewControllerDidSelect(searchResult: SearchResults) {
         navigationItem.searchController?.searchBar.resignFirstResponder()
         
+        HapticManager.shared.vibrateForSelection()
+        
         let vc = StockDetailsViewController(
             symbol: searchResult.displaySymbol,
             companyName: searchResult.description
@@ -275,7 +277,9 @@ extension WatchListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        // Open details for selection
+        
+        HapticManager.shared.vibrateForSelection()
+        
         let viewModel = viewModels[indexPath.row]
         let vc = StockDetailsViewController(
             symbol: viewModel.symbol,
