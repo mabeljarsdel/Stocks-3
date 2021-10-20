@@ -7,17 +7,23 @@
 
 import UIKit
 
+/// Delegate to notify of cell events
 protocol WatchListhTableViewCellDelegate: AnyObject {
     func didUpdateMaxWidth()
 }
 
-class WatchListhTableViewCell: UITableViewCell {
+/// Table cell for watch list item
+final class WatchListhTableViewCell: UITableViewCell {
+    /// Cell identifier
     static let identifier = "WatchListhTableViewCell"
     
+    /// Delegate
     weak var delegate: WatchListhTableViewCellDelegate?
     
+    /// Height of cell
     static let preferredHeight: CGFloat = 60
     
+    /// Watchlist table cell viewModel
     struct ViewModel {
         let symbol: String
         let companyName: String
@@ -27,21 +33,21 @@ class WatchListhTableViewCell: UITableViewCell {
         let chartViewModel: StockChartView.ViewModel
     }
     
-    // Symbol Label
+    /// Symbol Label
     private let symbolLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .bold)
         return label
     }()
     
-    // Company Label
+    /// Company Label
     private let namelLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .regular)
         return label
     }()
     
-    // Price Label
+    /// Price Label
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .regular)
@@ -49,7 +55,7 @@ class WatchListhTableViewCell: UITableViewCell {
         return label
     }()
     
-    // Change Label
+    /// Change Label
     private let changeLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -60,12 +66,15 @@ class WatchListhTableViewCell: UITableViewCell {
         return label
     }()
     
+    /// Chart
     private let miniChartView: StockChartView = {
         let chart = StockChartView()
         chart.isUserInteractionEnabled = false 
         chart.clipsToBounds = true
         return chart
     }()
+    
+    // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -147,6 +156,8 @@ class WatchListhTableViewCell: UITableViewCell {
         miniChartView.reset()
     }
     
+    /// Configure view
+    /// - Parameter viewModel: View ViewModel
     public func configure(with viewModel: ViewModel) {
         symbolLabel.text = viewModel.symbol
         namelLabel.text = viewModel.companyName

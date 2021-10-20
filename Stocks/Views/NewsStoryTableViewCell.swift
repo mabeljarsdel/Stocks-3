@@ -7,11 +7,15 @@
 import SDWebImage
 import UIKit
 
-class NewsStoryTableViewCell: UITableViewCell {
+/// News story tableView Cell
+final class NewsStoryTableViewCell: UITableViewCell {
+    /// Cell identifier
     static let identifier = "NewsStoryTableViewCell"
     
+    /// Height for cell
     static let preferredHeight: CGFloat = 200
     
+    /// Cell viewModel
     struct ViewModel {
         let source: String
         let headline: String
@@ -26,21 +30,21 @@ class NewsStoryTableViewCell: UITableViewCell {
         }
     }
     
-    // Source
+    /// Source
     private let sourceLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         
         return label
     }()
-    // Headline
+    /// Headline label
     private let headlineLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20, weight: .regular)
         label.numberOfLines = 0
         return label
     }()
-    // Date
+    /// Date label
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .secondaryLabel
@@ -48,7 +52,7 @@ class NewsStoryTableViewCell: UITableViewCell {
         
         return label
     }()
-    // Image
+    /// Image for story
     private let storyImageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .tertiarySystemBackground
@@ -59,6 +63,7 @@ class NewsStoryTableViewCell: UITableViewCell {
         return view
     }()
     
+    //MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -114,6 +119,8 @@ class NewsStoryTableViewCell: UITableViewCell {
         storyImageView.image = nil
     }
     
+    /// Configure view
+    /// - Parameter viewModel: View ViewModel
     public func configure(with viewModel:ViewModel) {
         headlineLabel.text = viewModel.headline
         sourceLabel.text = viewModel.source
